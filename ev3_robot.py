@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env micropython
 from ev3dev2.motor import OUTPUT_C, OUTPUT_B, OUTPUT_A, MoveSteering, LargeMotor, MoveTank, MediumMotor
 from ev3dev2.motor import SpeedDPS, SpeedRPS, SpeedRPM
 from ev3dev2.sensor.lego import GyroSensor
@@ -51,7 +51,6 @@ class Ev3Robot:
         value1 = self.motorB.position
         angle0 = self.gyro.angle
         rotations = cm / 19.05
-        self.gyro.reset()
         while (self.motorB.position - value1) / 360 < rotations:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
