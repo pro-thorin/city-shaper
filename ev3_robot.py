@@ -12,10 +12,6 @@ class Ev3Robot:
         self.motorB = LargeMotor(OUTPUT_B)
         self.motorC = LargeMotor(OUTPUT_C)
 
-    def move_in_cm(self, centimeters, speed=SpeedDPS(256)):
-        rotations = centimeters / -19.05
-        self.steer_pair.on_for_rotations(steering = 0, speed = SpeedDPS(256), rotations = rotations)
-
     def pivot_right(self, degrees, speed = 20):
         self.tank_pair.on(left_speed = 0, right_speed = speed)
         self.gyro.wait_until_angle_changed_by(degrees - 10)
