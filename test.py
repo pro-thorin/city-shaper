@@ -6,4 +6,4 @@ from sys import stderr
 from ev3_robot import Ev3Robot
 
 robot = Ev3Robot()
-robot.go_straight_forward(500)
+robot.align(speed = -20)
