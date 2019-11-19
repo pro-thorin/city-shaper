@@ -1,7 +1,8 @@
 #!/usr/bin/env micropython
 from ev3dev2.motor import OUTPUT_C, OUTPUT_B, OUTPUT_A, MoveSteering, LargeMotor, MoveTank, MediumMotor
 from ev3dev2.motor import SpeedDPS, SpeedRPS, SpeedRPM
-from ev3dev2.sensor.lego import GyroSensor
+from ev3dev2.sensor.lego import GyroSensor, ColorSensor
+from ev3dev2.sensor import INPUT_1, INPUT_4
 from sys import stderr
 
 class Ev3Robot:
@@ -11,6 +12,8 @@ class Ev3Robot:
         self.tank_pair = MoveTank(wheel1, wheel2)
         self.motor1 = LargeMotor(wheel1)
         self.motor2 = LargeMotor(wheel2)
+        self.color1 = ColorSensor(INPUT_1)
+        self.color4 = ColorSensor(INPUT_4)
 
     def pivot_right(self, degrees, speed = 20):
         self.tank_pair.on(left_speed = 0, right_speed = speed)
@@ -50,3 +53,32 @@ class Ev3Robot:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
             self.steer_pair.on(steering = angle * -1, speed = speed)
+    
+    def go_straight_backward(self, cm, speed = 30):
+        value1 = self.motor1.position
+        angle0 = self.gyro.angle
+        rotations = cm / 19.05
+        while (self.motor1.position - value1) / 360 < rotations:
+            self.gyro.mode = 'GYRO-ANG'
+            angle = self.gyro.angle - angle0
+            self.steer_pair.on(steering = angle * -1, speed = speed * -1)
+    
+    def align(self, speed = 20):
+        while self.color1.reflected_light_intensity < 90 and self.color4.reflected_light_intensity < 90:
+            self.steer_pair.on(steering = 0, speed = speed)
+            print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
+        print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
+        if self.color1.reflected_light_intensity > 90:
+            while self.color4.reflected_light_intensity < 90:
+                self.motor1.on(speed = speed)
+            self.motor1.off()
+            print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
+        else:
+            while self.color1.reflected_light_intensity < 90:
+                self.motor2.on(speed = speed)
+            self.motor2.off()
+            print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
+        
+
+
+
