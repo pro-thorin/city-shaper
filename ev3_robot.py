@@ -61,24 +61,19 @@ class Ev3Robot:
         while (self.motor1.position - value1) / 360 < rotations:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
-            self.steer_pair.on(steering = angle * -1, speed = speed * -1)
+            self.steer_pair.on(steering = angle, speed = speed * -1)
     
-    def align(self, speed = 20):
-        while self.color1.reflected_light_intensity < 90 and self.color4.reflected_light_intensity < 90:
+    def align_white(self, speed = 20):
+        while self.color1.reflected_light_intensity < 99 and self.color4.reflected_light_intensity < 99:
             self.steer_pair.on(steering = 0, speed = speed)
-            print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
-        print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
-        if self.color1.reflected_light_intensity > 90:
-            while self.color4.reflected_light_intensity < 90:
+        if self.color4.reflected_light_intensity > 99:
+            while self.color4.reflected_light_intensity > 99:
                 self.motor1.on(speed = speed)
             self.motor1.off()
             print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
         else:
-            while self.color1.reflected_light_intensity < 90:
+            while self.color4.reflected_light_intensity < 99:
                 self.motor2.on(speed = speed)
             self.motor2.off()
             print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
-        
-
-
-
+    
