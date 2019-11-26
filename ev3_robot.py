@@ -53,7 +53,7 @@ class Ev3Robot:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
             self.steer_pair.on(steering = angle * -1, speed = speed)
-    
+
     def go_straight_backward(self, cm, speed = 30):
         value1 = self.motor1.position
         angle0 = self.gyro.angle
@@ -62,18 +62,34 @@ class Ev3Robot:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
             self.steer_pair.on(steering = angle, speed = speed * -1)
-    
+
     def align_white(self, speed = 20):
-        while self.color1.reflected_light_intensity < 99 and self.color4.reflected_light_intensity < 99:
+        while self.color1.reflected_light_intensity < 95 and self.color4.reflected_light_intensity < 95:
             self.steer_pair.on(steering = 0, speed = speed)
-        if self.color4.reflected_light_intensity > 99:
-            while self.color4.reflected_light_intensity > 99:
+        self.steer_pair.off()
+        if self.color4.reflected_light_intensity > 95:
+            while self.color1.reflected_light_intensity < 95:
                 self.motor1.on(speed = speed)
             self.motor1.off()
-            print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
-        else:
-            while self.color4.reflected_light_intensity < 99:
+        else: 
+            while self.color4.reflected_light_intensity < 95:
                 self.motor2.on(speed = speed)
             self.motor2.off()
-            print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
-    
+        print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
+    def align_black(self, speed = 20):
+        while self.color1.reflected_light_intensity > 16 and self.color4.reflected_light_intensity > 16:
+            self.steer_pair.on(steering = 0, speed = speed)
+        self.steer_pair.off()
+        if self.color4.reflected_light_intensity < 16:
+            while self.color1.reflected_light_intensity > 16:
+                self.motor1.on(speed = speed)
+            self.motor1.off()
+        else: 
+            while self.color4.reflected_light_intensity > 16:
+                self.motor2.on(speed = speed)
+            self.motor2.off()
+        print(self.color1.reflected_light_intensity, self.color4.reflected_light_intensity, file = stderr)
+    def align(self, speed = 20):
+        self.align_white(speed)
+        self.align_black(-5)
+        self.align_white(-5)
