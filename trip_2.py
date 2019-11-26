@@ -11,8 +11,8 @@ steer_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
 medium_motorA = MediumMotor(OUTPUT_A)
 medium_motorD = MediumMotor(OUTPUT_D)
 
-medium_motorD.on_for_degrees(degrees = 90, speed = 100)
-robot.go_straight_forward(cm = 45.72, speed = SpeedDPS(512))
+medium_motorD.on_for_degrees(degrees = 90, speed = 30)
+robot.go_straight_forward(cm = 45.72, speed = SpeedDPS(-512))
 robot.spin_right(degrees = 43)
 robot.go_straight_forward(cm = 53.34)
 
@@ -21,3 +21,5 @@ robot.spin_right(degrees = 50)
 robot.go_straight_forward(cm = 91.44)
 robot.spin_left(degrees = 30)
 robot.go_straight_forward(cm = 12.5)
+
+
