@@ -4,6 +4,7 @@ from ev3dev2.motor import SpeedDPS, SpeedRPS, SpeedRPM
 from ev3dev2.sensor.lego import GyroSensor, ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_4
 from sys import stderr
+from time import sleep
 
 class Ev3Robot:
     def __init__(self, wheel1 = OUTPUT_B, wheel2 = OUTPUT_C):
@@ -93,3 +94,18 @@ class Ev3Robot:
         self.align_white(speed)
         self.align_black(-5)
         self.align_white(-5)
+    def calibrate(self):
+        print("black")
+        sleep(20)
+        black1 = self.color1.reflected_light_intensity
+        black4 = self.color4.reflected_light_intensity
+        black = (black1 + black4) / 2
+        print(black, file = stderr)
+        sleep(3)
+        print("white")
+        sleep(20)
+        white1 = self.color1.reflected_light_intensity
+        white4 = self.color4.reflected_light_intensity
+        white = (white1 + white4) / 2
+        print(white, file = stderr)
+        sleep(3)
