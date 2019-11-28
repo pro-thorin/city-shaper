@@ -63,6 +63,35 @@ class Ev3Robot:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
             self.steer_pair.on(steering = angle, speed = speed * -1)
+    
+    def calibrate(self):
+        print("black")
+        sleep(20)
+        black1 = self.color1.reflected_light_intensity
+        black4 = self.color4.reflected_light_intensity
+        print(black1, black4, file = stderr)
+        sleep(3)
+        print("white")
+        sleep(20)
+        white1 = self.color1.reflected_light_intensity
+        white4 = self.color4.reflected_light_intensity
+        print(white1, white4, file = stderr)
+        sleep(3)
+        self.write_color("black1", black1)
+        self.write_color("black4", black4)
+        self.write_color("white1", white1)
+        self.write_color("white4", white4)
+
+    def write_color(self, file, value):
+        f = open(file, "w")
+        f.write(value)
+        f.close()
+    
+    def read_color(self, file):
+        f = open(file, "r")
+        color = f.readline()
+        f.close()
+        return color
 
     def align_white(self, speed = 20):
         while self.color1.reflected_light_intensity < 95 and self.color4.reflected_light_intensity < 95:
@@ -94,18 +123,3 @@ class Ev3Robot:
         self.align_white(speed)
         self.align_black(-5)
         self.align_white(-5)
-    def calibrate(self):
-        print("black")
-        sleep(20)
-        black1 = self.color1.reflected_light_intensity
-        black4 = self.color4.reflected_light_intensity
-        black = (black1 + black4) / 2
-        print(black, file = stderr)
-        sleep(3)
-        print("white")
-        sleep(20)
-        white1 = self.color1.reflected_light_intensity
-        white4 = self.color4.reflected_light_intensity
-        white = (white1 + white4) / 2
-        print(white, file = stderr)
-        sleep(3)
