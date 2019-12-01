@@ -40,12 +40,12 @@ class Ev3Robot:
         return color
 
     def pivot_right(self, degrees, speed = 20):
-        self.tank_pair.on(left_speed = 0, right_speed = speed)
+        self.tank_pair.on(left_speed = speed, right_speed = 0)
         self.gyro.wait_until_angle_changed_by(degrees - 10)
         self.tank_pair.off()
     
     def pivot_left(self, degrees, speed = 20):
-        self.tank_pair.on(left_speed = speed, right_speed = 0)
+        self.tank_pair.on(left_speed = 0, right_speed = speed)
         self.gyro.wait_until_angle_changed_by(degrees - 10)
         self.tank_pair.off()
     
