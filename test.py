@@ -6,6 +6,5 @@ from sys import stderr
 from ev3_robot import Ev3Robot
 
 robot = Ev3Robot()
-robot.read_calibration()
-robot.align(t = 5)
+robot.calibrate()
 # robot.calibrate()
