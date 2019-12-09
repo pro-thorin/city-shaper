@@ -132,6 +132,7 @@ class Ev3Robot:
         print("1 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
         while self.calibrate_RLI(self.color1) > t and self.calibrate_RLI(self.color4) > t:
             self.steer_pair.on(steering = 0, speed = speed)
+            
         print("2 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
         self.steer_pair.off()
         if self.calibrate_RLI(self.color4) < t:
