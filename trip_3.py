@@ -22,18 +22,5 @@ robot.align(5)
 #solving mission 7, swing
 robot.spin_right(degrees = 90, speed = 20)
 robot.go_straight_forward(cm = 50, speed = -20)
-robot.spin_right(degrees = 10)
-robot.go_straight_backward(cm = 1000000, speed = -50)
-# robot.pivot_right(degrees = 56, speed = 20)
-# motor1.off
-# motor2.off
-
-# sleep(1)
-# robot.go_straight_forward(cm = 50, speed = -20)
-# robot.go_straight_backward(cm = 20, speed = -30)
-# robot.pivot_left(degrees = 25)
-# motor1.off
-# motor2.off
-# sleep(1)
-# robot.go_straight_forward(cm = 48, speed = -30)
-# robot.spin_right(degrees = 90)
+robot.spin_right(degrees = 7)
+robot.go_straight_backward(cm = 1000, speed = -50)
