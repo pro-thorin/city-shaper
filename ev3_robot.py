@@ -5,7 +5,7 @@ from ev3dev2.sensor.lego import GyroSensor, ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_4
 from sys import stderr
 from time import sleep
-
+xs
 class Ev3Robot:
 
     __slots__ = [
@@ -88,17 +88,17 @@ class Ev3Robot:
             self.steer_pair.on(steering = angle, speed = speed * -1)
     
     def calibrate(self):
-        print("black", file = stderr)
+        # print("black", file = stderr)
         sleep(10)
         self._black1 = self.color1.reflected_light_intensity
         self._black4 = self.color4.reflected_light_intensity
-        print(self._black1, self._black4, file = stderr)
+        # print(self._black1, self._black4, file = stderr)
         sleep(3)
-        print("white", file = stderr)
+        # print("white", file = stderr)
         sleep(10)
         self._white1 = self.color1.reflected_light_intensity
         self._white4 = self.color4.reflected_light_intensity
-        print(self._white1, self._white4, file = stderr)
+        # print(self._white1, self._white4, file = stderr)
         sleep(3)
         self.write_color("/tmp/black1", self._black1)
         self.write_color("/tmp/black4", self._black4)
@@ -112,40 +112,40 @@ class Ev3Robot:
         self._white4 = self.read_color("/tmp/white4")
 
     def align_white(self, speed = 20, t = 96.8):
-        print(self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+        # print(self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
         while self.calibrate_RLI(self.color1) < t and self.calibrate_RLI(self.color4) < t:
             self.steer_pair.on(steering = 0, speed = speed)
-        print(self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+        # print(self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
         self.steer_pair.off()
         if self.calibrate_RLI(self.color4) > t:
             while self.calibrate_RLI(self.color1) < t:
                 self.motor1.on(speed = speed)
-            print(self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+            # print(self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
             self.motor1.off()
         else: 
             while self.calibrate_RLI(self.color4) < t:
                 self.motor2.on(speed = speed)
             self.motor2.off()
-        print(self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+        # print(self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
 
     def align_black(self, speed = 20, t = 4.7):
-        print("1 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+        # print("1 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
         while self.calibrate_RLI(self.color1) > t and self.calibrate_RLI(self.color4) > t:
             self.steer_pair.on(steering = 0, speed = speed)
             
-        print("2 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+        # print("2 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
         self.steer_pair.off()
         if self.calibrate_RLI(self.color4) < t:
             while self.calibrate_RLI(self.color1) > t:
                 self.motor1.on(speed = speed)
-            print("3 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+            # print("3 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
             self.motor1.off()
         else: 
             while self.calibrate_RLI(self.color4) > t:
                 self.motor2.on(speed = speed)
-            print("4 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+            # print("4 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
             self.motor2.off()
-        print("5 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
+        # print("5 ", self.calibrate_RLI(self.color1), self.calibrate_RLI(self.color4), file = stderr)
 
     def align(self, t, speed = -20):
         self.align_white(speed = speed, t = 100 - t)
