@@ -5,7 +5,7 @@ from ev3dev2.sensor.lego import GyroSensor, ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_4
 from sys import stderr
 from time import sleep
-xs
+
 class Ev3Robot:
 
     __slots__ = [
@@ -56,7 +56,7 @@ class Ev3Robot:
         self.gyro.wait_until_angle_changed_by(degrees)
         self.tank_pair.off()
         value2 = self.gyro.angle
-        self.tank_pair.on(left_speed = -20, right_speed = 20)
+        self.tank_pair.on(left_speed = -10, right_speed = 10)
         self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees)
     
     def spin_left(self, degrees, speed = 20):
@@ -66,7 +66,7 @@ class Ev3Robot:
         self.gyro.wait_until_angle_changed_by(degrees)
         self.tank_pair.off()
         value2 = self.gyro.angle
-        self.tank_pair.on(left_speed = 20, right_speed = -20)
+        self.tank_pair.on(left_speed = 8, right_speed = -8)
         self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees)
 
     def go_straight_forward(self, cm, speed = -20):
