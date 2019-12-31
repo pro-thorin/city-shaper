@@ -11,4 +11,4 @@ robot = Ev3Robot()
 motor1 = LargeMotor(OUTPUT_B)
 motor2 = LargeMotor(OUTPUT_C)
 
-robot.go_straight_forward(48)
+robot.go_straight_forward(cm = 48, speed = -20)                                                                                                                                                                            )
