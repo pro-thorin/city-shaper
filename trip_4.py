@@ -4,7 +4,6 @@ from ev3dev2.motor import SpeedDPS, SpeedRPS, SpeedRPM
 from ev3dev2.sensor.lego import GyroSensor
 from time import sleep
 from ev3_robot import Ev3Robot
-<<<<<<< HEAD
 robot = Ev3Robot()
 tank_pair = MoveTank(OUTPUT_B, OUTPUT_C)
 gyro = GyroSensor()
@@ -17,9 +16,3 @@ robot.spin_right(degrees = 15)
 robot.go_straight_forward(cm = 46, speed = -40)
 robot.spin_right(degrees = 45)
 robot.go_straight_backward(cm = 54, speed = -60)
-=======
-def trip4(state):
-    robot = Ev3Robot()
-    robot.go_straight_forward(cm = 66, speed = -20)
-    robot.go_straight_backward(cm = 100, speed = -50)
->>>>>>> f43be81697edd944d4136a0ca48196c8e886b76e
