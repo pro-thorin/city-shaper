@@ -77,6 +77,7 @@ class Ev3Robot:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
             self.steer_pair.on(steering = angle * -1, speed = speed)
+        self.stop()
 
     def go_straight_backward(self, cm, speed = 30):
         value1 = self.motor1.position
@@ -86,7 +87,7 @@ class Ev3Robot:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
             self.steer_pair.on(steering = angle, speed = speed * -1)
-    
+        self.stop()
     def calibrate(self):
         print("black", file = stderr)
         sleep(10)
@@ -160,3 +161,6 @@ class Ev3Robot:
             black = self._black4
             white = self._white4
         return (color_sensor.reflected_light_intensity - black) / (white - black) * 100
+    def stop(self):
+        self.motor1.off()
+        self.motor2.off()

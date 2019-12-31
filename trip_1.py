@@ -8,11 +8,12 @@ from ev3_robot import Ev3Robot
 #Defining
 def trip1():
     robot = Ev3Robot()
-    robot.go_straight_forward(cm=58, speed=-30)
-    robot.go_straight_backward(cm=30, speed=-30)
-    robot.spin_right(degrees= 70, speed=20)
-    motor1.off()
-    motor2.off()
+    robot.go_straight_forward(cm=59, speed=-30)
     sleep(1)
+    robot.go_straight_backward(cm=18, speed=-30)
+    robot.spin_right(degrees= 90, speed=20)
+    robot.go_straight_backward(cm = 65, speed = -70)
+
+
 
 trip1()
