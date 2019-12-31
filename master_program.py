@@ -50,9 +50,7 @@ while not button.any():
 # robot.go_straight_forward(cm = 50, speed = -20)
 # robot.spin_right(degrees = 7)
 # robot.go_straight_backward(cm = 1000, speed = -50)
-print("Bob is very cool!", file = stderr)
 sleep(5)
-print("HEIEIE", file = stderr)
 
 while not button.any():
     sleep(0.01)
