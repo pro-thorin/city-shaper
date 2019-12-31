@@ -13,8 +13,8 @@ class Ev3Robot:
         '_black4' ,
         '_white1' ,
         '_white4' 
-
     ]
+
     def __init__(self, wheel1 = OUTPUT_B, wheel2 = OUTPUT_C):
         self.steer_pair = MoveSteering(wheel1, wheel2)
         self.gyro = GyroSensor()
@@ -88,17 +88,17 @@ class Ev3Robot:
             self.steer_pair.on(steering = angle, speed = speed * -1)
     
     def calibrate(self):
-        # print("black", file = stderr)
+        print("black", file = stderr)
         sleep(10)
         self._black1 = self.color1.reflected_light_intensity
         self._black4 = self.color4.reflected_light_intensity
-        # print(self._black1, self._black4, file = stderr)
+        print(self._black1, self._black4, file = stderr)
         sleep(3)
-        # print("white", file = stderr)
+        print("white", file = stderr)
         sleep(10)
         self._white1 = self.color1.reflected_light_intensity
         self._white4 = self.color4.reflected_light_intensity
-        # print(self._white1, self._white4, file = stderr)
+        print(self._white1, self._white4, file = stderr)
         sleep(3)
         self.write_color("/tmp/black1", self._black1)
         self.write_color("/tmp/black4", self._black4)
@@ -160,4 +160,3 @@ class Ev3Robot:
             black = self._black4
             white = self._white4
         return (color_sensor.reflected_light_intensity - black) / (white - black) * 100
-
