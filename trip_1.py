@@ -29,4 +29,3 @@ robot.spin_right(degrees= 70, speed=20)
 motor1.off()
 motor2.off()
 sleep(1)
-
