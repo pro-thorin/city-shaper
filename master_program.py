@@ -18,13 +18,22 @@ btn._state = set()
 def left(state):
     trip1()
     btn._state = set()
+def right(state):
+    trip2()
+    btn._state = set()
+def up(state):
+    trip3()
+    btn._state = set()
+def down(state):
+    trip4()
+    btn._state = set()
 
 # Do something when state of any button changes:
 
 btn.on_left = left
-btn.on_right = trip2
-btn.on_up = trip3
-btn.on_down = trip4
+btn.on_right = right
+btn.on_up = up
+btn.on_down = down
 
 while True:
     btn.process()

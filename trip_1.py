@@ -15,5 +15,5 @@ def trip1():
     robot.go_straight_backward(cm = 65, speed = -70)
 
 
-
-trip1()
+if __name__ == '__main__':
+    trip1()

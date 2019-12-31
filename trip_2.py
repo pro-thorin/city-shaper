@@ -26,4 +26,6 @@ def trip2():
     sleep(1)
     robot.go_straight_forward(cm = 50, speed = -20)
     robot.go_straight_backward(cm = 1000, speed = -50)
-trip2()
+
+if __name__ == '__main__':
+    trip2()
