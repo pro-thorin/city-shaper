@@ -4,6 +4,7 @@ from ev3dev2.motor import SpeedDPS, SpeedRPS, SpeedRPM
 from ev3dev2.sensor.lego import GyroSensor
 from time import sleep
 from ev3_robot import Ev3Robot
+
 def trip3():
     robot = Ev3Robot()
     robot.go_straight_forward(48)
