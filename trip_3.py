@@ -5,10 +5,8 @@ from ev3dev2.sensor.lego import GyroSensor
 from time import sleep
 from ev3_robot import Ev3Robot
 def trip3(state):
-    tank_pair = MoveTank(OUTPUT_B, OUTPUT_C)
-    gyro = GyroSensor()
     robot = Ev3Robot()
-    motor1 = LargeMotor(OUTPUT_B)
-    motor2 = LargeMotor(OUTPUT_C)
-
     robot.go_straight_forward(48)
+    robot.go_straight_backward(cm = 10,speed = -20)
+    robot.spin_right(90)
+    robot.go_straight_backward(cm = 20,speed = -20)
