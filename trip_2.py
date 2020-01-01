@@ -19,13 +19,13 @@ def trip2():
     sleep(1)
     robot.spin_left(degrees = 94)
     sleep(1)
-    robot.go_straight_backward(cm = 15, speed = -30)
+    robot.go_straight_backward(cm = 10, speed = -30)
     robot.align(5)
     #solving mission 7, swing
-    robot.spin_right(degrees = 85, speed = 20)
+    robot.spin_right(degrees = 75, speed = 20)
     sleep(1)
     robot.go_straight_forward(cm = 50, speed = -20)
-    robot.go_straight_backward(cm = 1000, speed = -50)
+    robot.go_straight_backward(cm = 100, speed = -50)
 
 if __name__ == '__main__':
     trip2()
