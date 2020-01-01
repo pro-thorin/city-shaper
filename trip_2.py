@@ -13,6 +13,7 @@ def trip2():
     motor2 = LargeMotor(OUTPUT_C)
     tank_pair = MoveTank(OUTPUT_B, OUTPUT_C)
     #solving mission 6, traffic jam
+
     # robot.go_straight_forward(cm = 67.5, speed = -30)
     # robot.go_straight_forward(cm = 10, speed = -40)
     # robot.spin_right(degrees = 4)
@@ -26,6 +27,7 @@ def trip2():
     # sleep(1)
     # robot.go_straight_forward(cm = 50, speed = -20)
     robot.go_straight_backward(cm = 60, speed = -50)
+
 
 if __name__ == '__main__':
     trip2()
