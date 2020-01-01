@@ -23,6 +23,7 @@ def trip2():
     robot.spin_right(degrees = 76.5, speed = 20)
     sleep(0.5)
     robot.go_straight_forward(cm = 53, speed = -20)
+    #go back to home
     robot.go_straight_backward(cm = 170, speed = -50)
 
 
