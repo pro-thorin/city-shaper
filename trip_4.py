@@ -9,7 +9,7 @@ def trip4():
     robot = Ev3Robot()
     robot.go_straight_forward(cm = 66, speed = -20)
     robot.go_straight_backward(cm = 10, speed = -50)
-    robot.spin_left(degrees = 70)
+    robot.spin_left(degrees = 30)
     robot.go_straight_forward(cm = 35, speed = -40)
     robot.align(15)
     robot.spin_right(degrees = 90)
