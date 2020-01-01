@@ -20,6 +20,5 @@ def trip4():
     robot.go_straight_backward(cm = 30, speed = -30)
     robot.spin_right(degrees = 45)
 
-
 if __name__ == '__main__':
     trip4()
