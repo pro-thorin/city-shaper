@@ -14,7 +14,7 @@ def trip4():
     robot.align(15)
     robot.spin_right(degrees = 90)
     robot.go_straight_forward(cm = 50, speed = -40)
-    robot.spin_right(degrees = 60)
+    robot.spin_right(degrees = 51.1)
     robot.go_straight_backward(cm = 80, speed = -70)
 
 if __name__ == '__main__':
