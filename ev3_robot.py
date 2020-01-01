@@ -55,10 +55,10 @@ class Ev3Robot:
         value1 = self.gyro.angle
         self.tank_pair.on(left_speed = speed, right_speed = speed * -1)
         self.gyro.wait_until_angle_changed_by(degrees)
-        value2 = self.gyro.angle
-        self.tank_pair.on(left_speed = -30, right_speed = 30)
-        self.gyro.wait_until_angle_changed_by(value1 - value2 - degrees)
-        print(value1, value2, file = stderr)
+        # value2 = self.gyro.angle
+        # self.tank_pair.on(left_speed = -30, right_speed = 30)
+        # self.gyro.wait_until_angle_changed_by(value1 - value2 - degrees)
+        # # print(value1, value2, file = stderr)
         self.stop()
     
     def spin_left(self, degrees, speed = 20):
@@ -66,9 +66,9 @@ class Ev3Robot:
         value1 = self.gyro.angle
         self.tank_pair.on(left_speed = speed * -1, right_speed = speed)
         self.gyro.wait_until_angle_changed_by(degrees)
-        value2 = self.gyro.angle
-        self.tank_pair.on(left_speed = 8, right_speed = -8)
-        self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees + 5)
+        # value2 = self.gyro.angle
+        # self.tank_pair.on(left_speed = 8, right_speed = -8)
+        # self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees + 5)
         self.stop()
 
     def go_straight_forward(self, cm, speed = -20):

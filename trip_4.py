@@ -7,16 +7,19 @@ from ev3_robot import Ev3Robot
 
 def trip4():
     robot = Ev3Robot()
-    robot.go_straight_forward(cm = 66, speed = -20)
-    # robot.go_straight_backward(cm = 10, speed = -50)
-    # robot.spin_left(degrees = 30)
-    # robot.go_straight_backward(cm = 35, speed = -40)
-    # robot.spin_left(degrees = 0)
-    # robot.align(15)
-    # robot.spin_right(degrees = 90)
-    # robot.go_straight_forward(cm = 50, speed = -40)
-    # robot.spin_right(degrees = 45)
-    # robot.go_straight_backward(cm = 90, speed = -70)
+    robot.go_straight_forward(cm = 64, speed = -20)
+    robot.go_straight_backward(cm = 10, speed = -50)
+    robot.spin_left(degrees = 70)
+    robot.go_straight_backward(cm = 18, speed = -40)
+    robot.spin_right(degrees = 60)
+    robot.go_straight_forward(cm = 35, speed = -45)
+    robot.align(15)
+    robot.go_straight_forward(cm = 3, speed = -40)
+    robot.spin_right(degrees = 85)
+    robot.go_straight_backward(cm = 40, speed = -50)
+    robot.go_straight_backward(cm = 30, speed = -30)
+    robot.spin_right(degrees = 45)
+
 
 if __name__ == '__main__':
     trip4()
