@@ -38,7 +38,5 @@ def trip2():
     robot.spin_right(20)
     robot.go_straight_backward(115, -55)
 
-
-
 if __name__ == '__main__':
     trip2()
