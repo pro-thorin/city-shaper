@@ -16,4 +16,4 @@ def trip1():
 
 
 if __name__ == '__main__':
-    trip1()
+    trip1

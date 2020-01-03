@@ -27,6 +27,7 @@ class Ev3Robot:
         self._black4 = 0 
         self._white1 = 100
         self._white4 = 100
+        self.gyro.mode = 'GYRO-ANG'
 
     def write_color(self, file, value):
         f = open(file, "w")
@@ -49,9 +50,8 @@ class Ev3Robot:
         self.gyro.wait_until_angle_changed_by(degrees - 10)
         self.tank_pair.off()
     
-    def spin_right(self, degrees, speed = 20):
+    def old_spin_right(self, degrees, speed = 20):
         self.gyro.reset()
-        self.gyro.mode = 'GYRO-ANG'
         value1 = self.gyro.angle
         self.tank_pair.on(left_speed = speed, right_speed = speed * -1)
         self.gyro.wait_until_angle_changed_by(degrees)
@@ -61,15 +61,14 @@ class Ev3Robot:
         # # print(value1, value2, file = stderr)
         self.stop()
     
-    def spin_left(self, degrees, speed = 20):
-        self.gyro.mode = 'GYRO-ANG'
+    def old_spin_left(self, degrees, speed = 20):
         value1 = self.gyro.angle
         self.tank_pair.on(left_speed = speed * -1, right_speed = speed)
         self.gyro.wait_until_angle_changed_by(degrees)
         # value2 = self.gyro.angle
         # self.tank_pair.on(left_speed = 8, right_speed = -8)
         # self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees + 5)
-        self.stop()
+        self.tank_pair.off()
 
     def go_straight_forward(self, cm, speed = -20):
         value1 = self.motor1.position
@@ -79,7 +78,7 @@ class Ev3Robot:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
             self.steer_pair.on(steering = angle * -1, speed = speed)
-        self.stop()
+        self.steer_pair.off()
 
     def go_straight_backward(self, cm, speed = 30):
         value1 = self.motor1.position
@@ -89,7 +88,7 @@ class Ev3Robot:
             self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
             self.steer_pair.on(steering = angle, speed = speed * -1)
-        self.stop()
+        self.steer_pair.off()
 
     def calibrate(self):
         print("black", file = stderr)
@@ -164,6 +163,30 @@ class Ev3Robot:
             black = self._black4
             white = self._white4
         return (color_sensor.reflected_light_intensity - black) / (white - black) * 100
+
     def stop(self):
-        self.motor1.off()
-        self.motor2.off()
+        self.tank_pair.off()
+    
+    def spin_right(self, degrees, speed = 30):
+        value1 = self.gyro.angle
+        s1 = speed
+        d1 = 0
+        while d1 < degrees - 2:
+            value2 = self.gyro.angle
+            d1 = abs(value1 - value2)
+            b = speed / degrees
+            s1 = (speed - b * d1) * (degrees / 90) + 3 
+            self.steer_pair.on(steering = 100, speed = s1)
+        self.steer_pair.off()
+
+    def spin_left(self, degrees, speed = 30):
+        value1 = self.gyro.angle
+        s1 = speed
+        d1 = 0
+        while d1 < degrees - 2:
+            value2 = self.gyro.angle
+            d1 = abs(value1 - value2)
+            b = speed / degrees
+            s1 = (speed - b * d1) * (degrees / 90) + 3 
+            self.steer_pair.on(steering = -100, speed = s1)
+        self.steer_pair.off()
