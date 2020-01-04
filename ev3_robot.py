@@ -70,24 +70,22 @@ class Ev3Robot:
         # self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees + 5)
         self.tank_pair.off()
 
-    def go_straight_forward(self, cm, speed = -20):
+    def go_straight_forward(self, cm, speed = 20):
         value1 = self.motor1.position
         angle0 = self.gyro.angle
         rotations = cm / 19.05
         while abs(self.motor1.position - value1) / 360 < rotations:
-            self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
-            self.steer_pair.on(steering = angle * -1, speed = speed)
+            self.steer_pair.on(steering = angle * -1, speed = speed *-1)
         self.steer_pair.off()
 
-    def go_straight_backward(self, cm, speed = 30):
+    def go_straight_backward(self, cm, speed = 20):
         value1 = self.motor1.position
         angle0 = self.gyro.angle
         rotations = cm / 19.05
         while abs(self.motor1.position - value1) / 360 < rotations:
-            self.gyro.mode = 'GYRO-ANG'
             angle = self.gyro.angle - angle0
-            self.steer_pair.on(steering = angle, speed = speed * -1)
+            self.steer_pair.on(steering = angle, speed = speed)
         self.steer_pair.off()
 
     def calibrate(self):
