@@ -4,19 +4,19 @@ from ev3dev2.motor import SpeedDPS, SpeedRPS, SpeedRPM
 from ev3dev2.sensor.lego import GyroSensor
 from time import sleep
 from ev3_robot import Ev3Robot
-
+ 
 def trip4():
     robot = Ev3Robot()
     #push innovative architecture, sustainability upgrade, and red block
-    robot.go_straight_forward(cm = 64, speed = -20)
-    robot.go_straight_backward(cm = 10, speed = -50)
-    robot.spin_left(degrees = 70)
-    robot.go_straight_backward(cm = 18, speed = -40)
-    robot.spin_right(degrees = 60)
-    robot.go_straight_forward(cm = 35, speed = -45)
+    robot.go_straight_forward(cm = 64, speed=20)
+    robot.go_straight_backward(cm = 10, speed=50)
+    robot.spin_left(degrees = 82)
+    robot.go_straight_backward(cm = 18, speed=40)
+    robot.spin_right(degrees = 75)
+    robot.go_straight_forward(cm = 35, speed=45)
     robot.align(15)
-    robot.go_straight_forward(cm = 3, speed = -40)
-    robot.spin_right(degrees = 80)
+    robot.go_straight_forward(cm = 4, speed=20)
+    robot.spin_right(degrees = 90)
     #try and go backwards onto the bridge
     robot.go_straight_backward(cm = 40, speed = -30)
 

@@ -9,23 +9,34 @@ def trip2():
     #defining
     robot = Ev3Robot()
     robot.read_calibration()
-    #solving mission 6, traffic jam
-    robot.go_straight_forward(cm = 67.5, speed = -30)
-    robot.go_straight_forward(cm = 10, speed = -40)
-    robot.spin_right(degrees = 4)
-    sleep(1)
-    robot.spin_left(degrees = 94)
-    sleep(1)
-    robot.go_straight_backward(cm = 10, speed = -30)
+    #solving mission 6, traff ic jam
+    robot.go_straight_forward(cm = 67.5, speed=30)
+    robot.go_straight_forward(cm = 10, speed=40)
+    robot.spin_right(degrees = 10)
+    sleep(0.1)
+    robot.spin_left(degrees = 100)
+    robot.go_straight_backward(cm = 10, speed=30)
 
     robot.align(5)
     #solving mission 7, swing
-    robot.spin_right(degrees = 76.5, speed = 20)
-    sleep(0.5)
-    robot.go_straight_forward(cm = 53, speed = -20)
-    #go back to home
-    robot.go_straight_backward(cm = 170, speed = -50)
-
+    robot.spin_right(degrees = 95, speed = 20)
+    robot.go_straight_forward(cm = 53)
+    robot.go_straight_forward(cm = 5, speed=10)
+    # solving mission 8 & 9, elevator and safety factor
+    robot.go_straight_backward(cm=17)
+    robot.spin_left(90)
+    robot.go_straight_backward(cm=15, speed=15)
+    robot.go_straight_forward(36)
+    robot.spin_right(65)
+    robot.go_straight_forward(33)
+    robot.spin_right(30)
+    robot.go_straight_forward(1)
+    robot.spin_right(10)
+    robot.go_straight_backward(cm=15)
+    robot.spin_left(40)
+    robot.go_straight_backward(cm=70, speed=55)
+    robot.spin_right(20)
+    robot.go_straight_backward(cm=115, speed=55)
 
 if __name__ == '__main__':
     trip2()
