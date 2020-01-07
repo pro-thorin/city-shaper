@@ -17,13 +17,15 @@ def trip4():
     robot.align(15)
     robot.go_straight_forward(cm = 4, speed=20)
     robot.spin_right(degrees = 90)
-    #try and go backwards onto the bridge
-    robot.go_straight_backward(35, speed=30)
-    robot.go_straight_backward(10, speed=20)
+    # go backwards onto the bridge
+
+    robot.go_straight_backward(30, speed=30)
+    robot.go_straight_backward(15, speed=20)
     robot.go_straight_forward(7)
     robot.go_straight_backward(32.5, speed=45)
     while 1 == 1:
         robot.stop()
+
 
 if __name__ == '__main__':
     trip4()
