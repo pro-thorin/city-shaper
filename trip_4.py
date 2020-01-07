@@ -18,7 +18,8 @@ def trip4():
     robot.go_straight_forward(cm = 4, speed=20)
     robot.spin_right(degrees = 90)
     #try and go backwards onto the bridge
-    robot.go_straight_backward(45, speed=30)
+    robot.go_straight_backward(35, speed=30)
+    robot.go_straight_backward(10, speed=20)
     robot.go_straight_forward(7)
     robot.go_straight_backward(32.5, speed=45)
     while 1 == 1:
