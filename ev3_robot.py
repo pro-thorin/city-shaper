@@ -5,6 +5,8 @@ from ev3dev2.sensor.lego import GyroSensor, ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_4
 from sys import stderr
 from time import sleep
+from ev3dev2.led import Leds
+from ev3dev2.button import Button
 
 class Ev3Robot:
 
@@ -28,6 +30,8 @@ class Ev3Robot:
         self._white1 = 100
         self._white4 = 100
         self.gyro.mode = 'GYRO-ANG'
+        self.led = Leds()
+        self.btn = Button()
 
     def write_color(self, file, value):
         f = open(file, "w")
@@ -89,17 +93,23 @@ class Ev3Robot:
         self.steer_pair.off()
 
     def calibrate(self):
-        print("black", file = stderr)
-        sleep(10)
+        self.led.set_color('LEFT', 'ORANGE')
+        self.led.set_color('RIGHT', 'ORANGE')
+        while not self.btn.any():
+            sleep(0.01)
+        self.led.set_color('LEFT', 'GREEN')
+        self.led.set_color('RIGHT', 'GREEN')
+        sleep(2)
         self._black1 = self.color1.reflected_light_intensity
         self._black4 = self.color4.reflected_light_intensity
-        print(self._black1, self._black4, file = stderr)
-        sleep(3)
-        print("white", file = stderr)
-        sleep(10)
+        self.led.set_color('LEFT', 'ORANGE')
+        self.led.set_color('RIGHT', 'ORANGE')
+        while not self.btn.any():
+            sleep(0.01)
+        self.led.set_color('LEFT', 'GREEN')
+        self.led.set_color('RIGHT', 'GREEN')
         self._white1 = self.color1.reflected_light_intensity
         self._white4 = self.color4.reflected_light_intensity
-        print(self._white1, self._white4, file = stderr)
         sleep(3)
         self.write_color("/tmp/black1", self._black1)
         self.write_color("/tmp/black4", self._black4)
