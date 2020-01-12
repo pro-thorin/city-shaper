@@ -99,12 +99,12 @@ class Ev3Robot:
             sleep(0.01)
         self.led.set_color('LEFT', 'GREEN')
         self.led.set_color('RIGHT', 'GREEN')
-        sleep(2)
         self._black1 = self.color1.reflected_light_intensity
         self._black4 = self.color4.reflected_light_intensity
         self.led.set_color('LEFT', 'ORANGE')
+        sleep(2)
         self.led.set_color('RIGHT', 'ORANGE')
-        while not self.btn.any():
+    while not self.btn.any():                                                                                                                                                                                               aza                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            v                                                                                                                                                                                                                                                                                                                                             
             sleep(0.01)
         self.led.set_color('LEFT', 'GREEN')
         self.led.set_color('RIGHT', 'GREEN')
