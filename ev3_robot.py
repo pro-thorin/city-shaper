@@ -28,28 +28,30 @@ class Ev3Robot:
         self.btn = Button()
 
     def write_color(self, file, value):
-        #opens a file 
+        # opens a file 
         f = open(file, "w")
-        #writes a value to the file
+        # writes a value to the file
         f.write(str(value))
         f.close()
 
     def read_color(self, file):
-        #opens a file
+        # opens a file
         f = open(file, "r")
-        #reads the value
+        # reads the value
         color = int(f.readline().strip())
         f.close()
         return color
 
     def pivot_right(self, degrees, speed = 20):
-        #makes the robot pivot to the right until the gyro sensor senses that it has turned the required number of degrees
+        # makes the robot pivot to the right until the gyro sensor 
+        # senses that it has turned the required number of degrees
         self.tank_pair.on(left_speed = speed, right_speed = 0)
         self.gyro.wait_until_angle_changed_by(degrees - 10)
         self.tank_pair.off()
     
     def pivot_left(self, degrees, speed = 20):
-        #makes the robot pivot to the left until the gyro sensor senses that it has turned the required number of degrees
+        # makes the robot pivot to the left until the gyro sensor 
+        # senses that it has turned the required number of degrees
         self.tank_pair.on(left_speed = 0, right_speed = speed)
         self.gyro.wait_until_angle_changed_by(degrees - 10)
         self.tank_pair.off()
@@ -70,15 +72,16 @@ class Ev3Robot:
         value1 = self.gyro.angle
         self.tank_pair.on(left_speed = speed * -1, right_speed = speed)
         self.gyro.wait_until_angle_changed_by(degrees)
-        # value2 = self.gyro.angle
-        # self.tank_pair.on(left_speed = 8, right_speed = -8)
-        # self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees + 5)
+        value2 = self.gyro.angle
+        self.tank_pair.on(left_speed = 8, right_speed = -8)
+        self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees + 5)
         self.tank_pair.off()
 
     def go_straight_forward(self, cm, speed = 20):
         value1 = self.motor1.position
         angle0 = self.gyro.angle
         rotations = cm / 19.05 #divides by circumference of the wheel
+
         # calculates the amount of degrees the robot has turned, then turns the 
         # opposite direction and repeats until the robot has gone the required 
         # number of centimeters
@@ -88,6 +91,7 @@ class Ev3Robot:
         self.steer_pair.off()
 
     def go_straight_backward(self, cm, speed = 20):
+        # see go_straight_forward
         value1 = self.motor1.position
         angle0 = self.gyro.angle
         rotations = cm / 19.05
