@@ -87,7 +87,7 @@ class Ev3Robot:
         else:
             self.motor4.on_for_degrees(degrees= degrees, speed = speed)
 
-    def go_straight_forward(self, cm, wiggle_factor = 1, speed = 20):
+    def go_straight_forward(self, cm, speed = 20, wiggle_factor = 1):
         value1 = self.motor1.position
         angle0 = self.gyro.angle
         rotations = cm / 19.05 #divides by circumference of the wheel
