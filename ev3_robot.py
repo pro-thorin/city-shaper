@@ -100,7 +100,7 @@ class Ev3Robot:
             self.steer_pair.on(steering = angle * wiggle_factor * -1, speed = speed *-1)
         self.steer_pair.off()
 
-    def go_straight_backward(self, cm, wiggle_factor = 1, speed = 20):
+    def go_straight_backward(self, cm, speed = 20, wiggle_factor = 1):
         # see go_straight_forward
         value1 = self.motor1.position
         angle0 = self.gyro.angle
