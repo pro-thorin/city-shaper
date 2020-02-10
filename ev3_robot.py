@@ -1,5 +1,5 @@
 #!/usr/bin/env micropython
-from ev3dev2.motor import OUTPUT_C, OUTPUT_B, OUTPUT_A, MoveSteering, LargeMotor, MoveTank
+from ev3dev2.motor import OUTPUT_C, OUTPUT_B, OUTPUT_A, OUTPUT_D, MoveSteering, LargeMotor, MediumMotor, MoveTank
 from ev3dev2.motor import SpeedDPS, SpeedRPS, SpeedRPM
 from ev3dev2.sensor.lego import GyroSensor, ColorSensor
 from ev3dev2.sensor import INPUT_1, INPUT_4
@@ -11,12 +11,14 @@ from ev3dev2.button import Button
 
 class Ev3Robot:
 
-    def __init__(self, wheel1 = OUTPUT_B, wheel2 = OUTPUT_C):
+    def __init__(self, wheel1 = OUTPUT_B, wheel2 = OUTPUT_C, wheel3 = OUTPUT_A, wheel4 = OUTPUT_D):
         self.steer_pair = MoveSteering(wheel1, wheel2)
         self.gyro = GyroSensor()
         self.tank_pair = MoveTank(wheel1, wheel2)
         self.motor1 = LargeMotor(wheel1)
         self.motor2 = LargeMotor(wheel2)
+        self.motor3 = MediumMotor(wheel3)
+        self.motor4 = MediumMotor(wheel4)
         self.color1 = ColorSensor(INPUT_1)
         self.color4 = ColorSensor(INPUT_4)
         self._black1 = 0
@@ -26,6 +28,7 @@ class Ev3Robot:
         self.gyro.mode = 'GYRO-ANG'
         self.led = Leds()
         self.btn = Button()
+        self.btn._state = set()
 
     def write_color(self, file, value):
         # opens a file 
@@ -77,7 +80,14 @@ class Ev3Robot:
         self.gyro.wait_until_angle_changed_by(value2 - value1 - degrees + 5)
         self.tank_pair.off()
 
-    def go_straight_forward(self, cm, speed = 20):
+    def dog_gear(self, degrees, motor, speed = 30):
+        if motor==3:
+            self.motor3.on_for_degrees(degrees = degrees, speed = speed)
+            self.motor3.off()
+        else:
+            self.motor4.on_for_degrees(degrees= degrees, speed = speed)
+
+    def go_straight_forward(self, cm, wiggle_factor = 1, speed = 20):
         value1 = self.motor1.position
         angle0 = self.gyro.angle
         rotations = cm / 19.05 #divides by circumference of the wheel
@@ -87,17 +97,17 @@ class Ev3Robot:
         # number of centimeters
         while abs(self.motor1.position - value1) / 360 < rotations:
             angle = self.gyro.angle - angle0
-            self.steer_pair.on(steering = angle * -1, speed = speed *-1)
+            self.steer_pair.on(steering = angle * wiggle_factor * -1, speed = speed *-1)
         self.steer_pair.off()
 
-    def go_straight_backward(self, cm, speed = 20):
+    def go_straight_backward(self, cm, wiggle_factor = 1, speed = 20):
         # see go_straight_forward
         value1 = self.motor1.position
         angle0 = self.gyro.angle
         rotations = cm / 19.05
         while abs(self.motor1.position - value1) / 360 < rotations:
             angle = self.gyro.angle - angle0
-            self.steer_pair.on(steering = angle * 1.3, speed = speed)
+            self.steer_pair.on(steering = angle * wiggle_factor, speed = speed)
         self.steer_pair.off()
 
     def calibrate(self):
@@ -135,41 +145,41 @@ class Ev3Robot:
         self._white1 = self.read_color("/tmp/white1")
         self._white4 = self.read_color("/tmp/white4")
 
-    def align_white(self, speed = 20, t = 96.8):
+    def align_white(self, speed = 20, t = 96.8, direction = 1):
         # goes forward until one of the color sensors sees the white line. 
         while self.calibrate_RLI(self.color1) < t and self.calibrate_RLI(self.color4) < t:
-            self.steer_pair.on(steering = 0, speed = speed)
+            self.steer_pair.on(steering = 0, speed = speed * direction)
         self.steer_pair.off()
         # determines which sensor sensed the white line, then moves the opposite 
         # motor until both sensors have sensed the white line
         if self.calibrate_RLI(self.color4) > t:
             while self.calibrate_RLI(self.color1) < t:
-                self.motor1.on(speed = speed)
+                self.motor1.on(speed = speed * direction)
             self.motor1.off()
         else: 
             while self.calibrate_RLI(self.color4) < t:
-                self.motor2.on(speed = speed)
+                self.motor2.on(speed = speed * direction)
             self.motor2.off()
 
-    def align_black(self, speed = 20, t = 4.7):
+    def align_black(self, speed = 20, t = 4.7, direction = 1):
         # see align_white
         while self.calibrate_RLI(self.color1) > t and self.calibrate_RLI(self.color4) > t:
-            self.steer_pair.on(steering = 0, speed = speed)
+            self.steer_pair.on(steering = 0, speed = speed * direction)
         self.steer_pair.off()
         if self.calibrate_RLI(self.color4) < t:
             while self.calibrate_RLI(self.color1) > t:
-                self.motor1.on(speed = speed)
+                self.motor1.on(speed = speed * direction)
             self.motor1.off()
         else: 
             while self.calibrate_RLI(self.color4) > t:
-                self.motor2.on(speed = speed)
+                self.motor2.on(speed = speed * direction)
             self.motor2.off()
 
-    def align(self, t, speed = -20):
+    def align(self, t, speed = -20, direction = 1):
         # aligns three times for extra accuracy
-        self.align_white(speed = speed, t = 100 - t)
-        self.align_black(speed = -5, t = t)
-        self.align_white(speed = -5, t = 100 - t)
+        self.align_white(speed = speed, t = 100 - t, direction = direction)
+        self.align_black(speed = -5, t = t, direction = direction)
+        self.align_white(speed = -5, t = 100 - t, direction = direction)
     
     def calibrate_RLI(self, color_sensor):
         # returns a scaled value based on what black and white are
@@ -202,3 +212,5 @@ class Ev3Robot:
             s1 = (speed - slope * d1) * (degrees / 90) + 3 
             self.steer_pair.on(steering = steering, speed = s1)
         self.steer_pair.off()
+
+    
