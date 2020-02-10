@@ -97,7 +97,7 @@ class Ev3Robot:
         rotations = cm / 19.05
         while abs(self.motor1.position - value1) / 360 < rotations:
             angle = self.gyro.angle - angle0
-            self.steer_pair.on(steering = angle, speed = speed)
+            self.steer_pair.on(steering = angle * 1.3, speed = speed)
         self.steer_pair.off()
 
     def calibrate(self):
