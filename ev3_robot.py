@@ -145,41 +145,41 @@ class Ev3Robot:
         self._white1 = self.read_color("/tmp/white1")
         self._white4 = self.read_color("/tmp/white4")
 
-    def align_white(self, speed = 20, t = 96.8):
+    def align_white(self, speed = 20, t = 96.8, direction = 1):
         # goes forward until one of the color sensors sees the white line. 
         while self.calibrate_RLI(self.color1) < t and self.calibrate_RLI(self.color4) < t:
-            self.steer_pair.on(steering = 0, speed = speed)
+            self.steer_pair.on(steering = 0, speed = speed * direction)
         self.steer_pair.off()
         # determines which sensor sensed the white line, then moves the opposite 
         # motor until both sensors have sensed the white line
         if self.calibrate_RLI(self.color4) > t:
             while self.calibrate_RLI(self.color1) < t:
-                self.motor1.on(speed = speed)
+                self.motor1.on(speed = speed * direction)
             self.motor1.off()
         else: 
             while self.calibrate_RLI(self.color4) < t:
-                self.motor2.on(speed = speed)
+                self.motor2.on(speed = speed * direction)
             self.motor2.off()
 
-    def align_black(self, speed = 20, t = 4.7):
+    def align_black(self, speed = 20, t = 4.7, direction = 1):
         # see align_white
         while self.calibrate_RLI(self.color1) > t and self.calibrate_RLI(self.color4) > t:
-            self.steer_pair.on(steering = 0, speed = speed)
+            self.steer_pair.on(steering = 0, speed = speed * direction)
         self.steer_pair.off()
         if self.calibrate_RLI(self.color4) < t:
             while self.calibrate_RLI(self.color1) > t:
-                self.motor1.on(speed = speed)
+                self.motor1.on(speed = speed * direction)
             self.motor1.off()
         else: 
             while self.calibrate_RLI(self.color4) > t:
-                self.motor2.on(speed = speed)
+                self.motor2.on(speed = speed * direction)
             self.motor2.off()
 
-    def align(self, t, speed = -20):
+    def align(self, t, speed = -20, direction = 1):
         # aligns three times for extra accuracy
-        self.align_white(speed = speed, t = 100 - t)
-        self.align_black(speed = -5, t = t)
-        self.align_white(speed = -5, t = 100 - t)
+        self.align_white(speed = speed, t = 100 - t, direction = direction)
+        self.align_black(speed = -5, t = t, direction = direction)
+        self.align_white(speed = -5, t = 100 - t, direction = direction)
     
     def calibrate_RLI(self, color_sensor):
         # returns a scaled value based on what black and white are

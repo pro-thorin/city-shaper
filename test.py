@@ -1,16 +1,22 @@
 #!/usr/bin/env micropython
 from time import sleep
 from ev3_robot import Ev3Robot
-from ev3dev2.motor import MoveSteering, MoveTank, LargeMotor, OUTPUT_B, OUTPUT_C
 
-steer_pair = MoveSteering(OUTPUT_B, OUTPUT_C)
 robot = Ev3Robot()
-
-robot.go_straight_forward(7)
-robot.go_straight_backward(80, 50)
+robot.go_straight_forward(cm = 87)
 robot.dog_gear(degrees = 180, motor = 3, speed = -100)
+robot.spin_left(degrees = 30)
+robot.go_straight_forward(cm = 22)
+robot.align(t = 15, direction = -1)
+robot.go_straight_forward(8)
+robot.spin_right(90)
+robot.go_straight_backward(22)
+robot.go_straight_forward(15)
+robot.go_straight_backward(68, 3, 46)
+robot.dog_gear(degrees = 180, motor = 3, speed = 100)
 while True: 
     robot.stop()
+
 
 
 # robot.spin_right(35)
