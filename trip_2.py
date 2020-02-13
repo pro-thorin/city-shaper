@@ -37,7 +37,7 @@ def trip2():
     robot.go_straight_forward(13, 25)
     robot.go_straight_forward(cm=8, speed=5)
     robot.go_straight_backward(2, 25)
-    robot.spin_right(15, 20)
+    robot.spin_right(25, 20)
     robot.go_straight_backward(5, 25)
     robot.spin_right(20)
     robot.go_straight_backward(5, 25)
