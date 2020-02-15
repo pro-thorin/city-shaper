@@ -17,3 +17,5 @@ robot = Ev3Robot()
 # while True: 
 #     robot.stop()
 
+robot.go_straight_forward(cm = 133004678)
+
