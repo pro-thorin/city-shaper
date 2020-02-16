@@ -32,4 +32,3 @@ btn.on_down = down
 while True:
     btn.process()
     sleep(0.01)
-    

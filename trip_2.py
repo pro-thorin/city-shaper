@@ -34,8 +34,9 @@ def trip2():
     robot.align(15)
     robot.go_straight_forward(13, 25)
     robot.spin_left(50)
+    # aligns at the safety factor
     robot.go_straight_forward(13, 25)
-    robot.go_straight_forward(cm=8, speed=5)
+    robot.go_straight_forward(cm=7, speed=5)
     robot.go_straight_backward(2, 25)
     robot.spin_right(25, 20)
     robot.go_straight_backward(5, 25)
@@ -45,7 +46,7 @@ def trip2():
     robot.go_straight_forward(11,25)
     robot.spin_left(25)
     robot.go_straight_backward(12, 30)
-    robot.spin_left(70)
+    robot.spin_left(75)
     robot.go_straight_backward(180, 60)
 
 
