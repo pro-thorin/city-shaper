@@ -7,7 +7,7 @@ def trip3():
     robot.go_straight_forward(47.5)
     robot.go_straight_backward(cm = 10,speed=20)
     robot.spin_right(90)
-    #go back to home
+    #go back to home today
     robot.go_straight_backward(cm = 40,speed=40)
 
 if __name__ == '__main__':
