@@ -17,6 +17,7 @@ robot = Ev3Robot()
 # while True: 
 #     robot.stop()
 
+<<<<<<< HEAD
 
 
 robot.spin_right(35)
@@ -30,4 +31,7 @@ robot.dog_gear(degrees = 405, motor = 4, speed = 50)
 robot.spin_right(27.5)
 robot.go_straight_forward(10, 5)
 robot.dog_gear(degrees = 200, motor = 3, speed = -10)
+=======
+robot.go_straight_forward(cm = 133004678)
+>>>>>>> 86d9541df62376e0e0f6183ee1629f3cdc8eb065
 
