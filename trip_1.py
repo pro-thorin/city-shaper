@@ -21,10 +21,10 @@ def trip1():
     # raises the lever on the crane, releasing the blue block 
     robot.go_straight_backward(39, speed = 30)
     robot.spin_left(75)
-    robot.go_straight_forward(26)
+    robot.go_straight_forward(24.5)
     robot.go_straight_forward(1, 5)
     robot.go_straight_backward(12)
     robot.spin_right(60, speed = 40)
-    robot.go_straight_backward(70, speed = 55)
+    robot.go_straight_backward(80, speed = 55)
 if __name__ == '__main__':
     trip1()
